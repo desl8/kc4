@@ -193,6 +193,21 @@ class GameBoard:
                         return True
         return False
 
+    def get_next_player(self) -> int:
+        """Returns a 1 or a 2 based on which player should go next
+
+        Returns:
+            int: Which player is going next
+        """
+        counts = [0, 0]  # How many pieces each player has on the board
+        for i in range(self.h):
+            for j in range(self.w):
+                if (
+                    occ := self.get_occupant((i, j))
+                ) > 0:  # I used the walrus operator Shayan! Are you proud of me?
+                    counts[occ - 1] += 1
+        return counts.index(min(counts))
+
 
 # ------ main function ------
 
